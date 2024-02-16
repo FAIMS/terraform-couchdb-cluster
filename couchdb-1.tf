@@ -17,7 +17,7 @@ resource "digitalocean_droplet" "couchdb-1" {
         inline = [
             "snap wait system seed.loaded",
             "snap install couchdb",
-            "snap set couchdb admin=${var.couchdb_password} setcookie=${var.couchdb_secret}",
+            "snap set couchdb admin=${var.couchdb_password} setcookie=${var.couchdb_secret} name=couchdb@${self.ipv4_address}",
             "sed -i -e 's/;bind_address = 127.0.0.1/bind_address = 0.0.0.0/' /var/snap/couchdb/current/etc/local.ini",
             "snap restart couchdb"
         ]
